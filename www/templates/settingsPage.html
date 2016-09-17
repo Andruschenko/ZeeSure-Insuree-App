@@ -1,3 +1,20 @@
 <ion-view title="Settings Page" id="page4">
-    <ion-content padding="true" class="has-header"></ion-content>
+  <ion-content padding="true" class="has-header">
+    <div id="settingsPage-markdown4" style="color:#000000;">
+      <p>Customize your Settings here</p>
+    </div>
+    <form id="settingsPage-form3" class="list">
+      <div class="spacer" style="height: 100px;"></div>
+      <label class="item item-select" id="settingsPage-select1" name="relation-degree">
+        <span class="input-label">Max degree of relation</span>
+        <select>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+        </select>
+      </label>
+      <ion-toggle toggle-class="toggle-positive" ng-checked="true" id="settingsPage-toggle1" name="friend-recommend">Recommend friends</ion-toggle>
+      <ion-toggle toggle-class="toggle-positive" id="settingsPage-toggle2">Toggle</ion-toggle>
+    </form>
+  </ion-content>
 </ion-view>
