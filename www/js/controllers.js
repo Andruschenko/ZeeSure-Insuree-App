@@ -1,9 +1,24 @@
 angular.module('app.controllers', ['ionic', 'ngCordova'])
 
-.controller('scanPageCtrl', ['$scope', '$stateParams', '$ionicPlatform', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('scanPageCtrl', ['$scope', '$stateParams', '$ionicPlatform', '$http', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicPlatform) {
+function ($scope, $stateParams, $ionicPlatform, $http, Scandit) {
+
+  $scope.getData = function(name) {
+    $http.get("https://api.siroop.ch/product/search/", { params: {
+      "apikey": "8ccd66bb1265472cbf8bed4458af4b07",
+      "limit": 10,
+      "query": name }
+    })
+      .success(function(data) {
+        $scope.prices = data;
+        console.log('prices', data);
+      })
+      .error(function(data) {
+        alert("ERROR in http request");
+      });
+  };
 
   $ionicPlatform.ready(function() {
     // On Windows, the alert function doesn't exist, so we add it.
@@ -76,19 +91,3 @@ function ($scope, $stateParams) {
 
 
 }])
-
-
-.controller('requestController', function($scope, $http) {
-
-  $scope.getData = function() {
-    $http.get("http://5124486f.ngrok.io", { params: { "key1": "value1", "key2": "value2" } })
-      .success(function(data) {
-        $scope.firstname = data.firstname;
-        $scope.lastname = data.lastname;
-      })
-      .error(function(data) {
-        alert("ERROR");
-      });
-  }
-
-})
