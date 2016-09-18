@@ -1,24 +1,9 @@
 angular.module('app.controllers', ['ionic', 'ngCordova'])
 
-.controller('scanPageCtrl', ['$scope', '$stateParams', '$ionicPlatform', '$http', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('scanPageCtrl', ['$scope', '$stateParams', '$ionicPlatform', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicPlatform, $http, Scandit) {
-
-  $scope.getData = function(name) {
-    $http.get("https://api.siroop.ch/product/search/", { params: {
-      "apikey": "8ccd66bb1265472cbf8bed4458af4b07",
-      "limit": 10,
-      "query": name }
-    })
-      .success(function(data) {
-        $scope.prices = data;
-        console.log('prices', data);
-      })
-      .error(function(data) {
-        alert("ERROR in http request");
-      });
-  };
+function ($scope, $stateParams, $ionicPlatform, Scandit) {
 
   $ionicPlatform.ready(function() {
     // On Windows, the alert function doesn't exist, so we add it.
@@ -76,11 +61,26 @@ function ($scope, $stateParams) {
 
 }])
 
-.controller('sendPageCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('sendPageCtrl', ['$scope', '$stateParams', '$http', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, $http) {
 
+  $scope.getData = function(name) {
+    $http.get("https://api.siroop.ch/product/search/", { params: {
+        "apikey": "8ccd66bb1265472cbf8bed4458af4b07",
+        "limit": 10,
+        "query": name }
+      })
+      .success(function(data) {
+        $scope.products = data;
+        $scope.filter = true;
+        console.log('products', data);
+      })
+      .error(function(data) {
+        alert("ERROR in http request");
+      });
+  };
 
 }])
 
